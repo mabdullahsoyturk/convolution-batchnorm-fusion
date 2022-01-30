@@ -52,13 +52,13 @@ def main():
         normal_time = 0
         y1 = None
         for iteration in range(100):
-            if iteration < 10:
-                continue
             start = time.time()
             y1 = net.forward(x)
             end = time.time()
-            normal_time += end - start
-        # print(f'Normal run took: {(normal_time / 100):.3f} seconds on average')
+
+            if iteration >= 10:
+                normal_time += end - start
+        # print(f'Normal run took: {(normal_time / 90):.3f} seconds on average')
 
         # fused run
         fused_convolution = fuse_convolution_and_batchnorm(net[0], net[1])
@@ -66,13 +66,12 @@ def main():
         fused_time = 0
         y2 = None
         for iteration in range(100):
-            if iteration < 10:
-                continue
             start = time.time()
             y2 = fused_convolution.forward(x)
             end = time.time()
-            fused_time += end - start
-        # print(f'Fused run took: {(fused_time / 100):.3f} seconds on average')
+            if iteration >= 10:
+                fused_time += end - start
+        # print(f'Fused run took: {(fused_time / 90):.3f} seconds on average')
 
         d = (y1 - y2).norm().div(y1.norm()).item()
         print("error: %.8f" % d)
