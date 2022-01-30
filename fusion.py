@@ -31,7 +31,7 @@ def fuse_convolution_and_batchnorm(convolution, batchnorm):
     return fused_convolution
 
 def main():
-    input_sizes = [input_size for input_size in range(32, 256, 32)]
+    input_sizes = [input_size for input_size in range(32, 257, 32)]
 
     rn18 = torchvision.models.resnet18(pretrained=True)
     rn18.eval()
@@ -65,7 +65,7 @@ def main():
                 fused_time += end - start
             # print(f'Fused run took: {(fused_time / 100):.3f} seconds on average')
             
-            print(f'For input (16, 3, {size}, {size}) speedup: {(normal_time / fused_time):.3f}x')
+            print(f'For input (16, 3, {size}, {size}), normal time: {normal_time:.3f}, fused_time: {fused_time:.3f} speedup: {(normal_time / fused_time):.3f}x')
 
 
 if __name__ == '__main__':
