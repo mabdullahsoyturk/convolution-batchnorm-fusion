@@ -4,7 +4,7 @@ To understand how it works, please refer to: https://nenadmarkus.com/p/fusing-ba
 
 ## A few experiments
 
-Colons can be used to align columns.
+I ran both implementations for each input size 100 times.
 
 | Input Size        | Normal           | Fused  | Speedup |
 | ------------- |:-------------:| -----:| -----:|
